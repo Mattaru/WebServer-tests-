@@ -4,7 +4,7 @@ namespace ConsoleTests
 {
     internal static class WebServerTest
     {
-        private const string url = $"http://localhost:8080/";
+        private const string URL = $"http://localhost:8080/";
 
         public static void Run()
         {
@@ -12,7 +12,7 @@ namespace ConsoleTests
             server.RequestRecived += Server_RequestRecived;
             server.Start();
             
-            Console.WriteLine($"Server started: {url}");
+            Console.WriteLine($"Server started: {URL}");
             Console.ReadLine();
         }
 

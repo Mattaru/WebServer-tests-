@@ -4,10 +4,10 @@ namespace Web
 {
     public class WebServer
     {
-        public event EventHandler<RequestReciverEventArgs> RequestRecived;
+        public event EventHandler<RequestReciverEventArgs>? RequestRecived;
 
         //private TcpListener _tcpListner = new TcpListener(new IPEndPoint(IPAddress.Any, 8080));
-        private HttpListener _HTTPListener;
+        private HttpListener? _HTTPListener;
         private readonly int _port;
         private bool _enabled;
         private readonly object _SyncRoot = new object();
@@ -24,9 +24,12 @@ namespace Web
             {
                 if (_enabled) return;
 
+                // before as first start the server you need add next couple lines(that guarantee rights to use next prefixes):
+                // netsh http add urlacl url=http://*:8080/ user=user_name
+                // netsh http add urlacl url=http://+:8080/ user=user_name 
                 _HTTPListener = new HttpListener();
-                _HTTPListener.Prefixes.Add($"http://*:{_port}/"); // netsh http add urlacl url=http://*:8080/ user=user_name
-                _HTTPListener.Prefixes.Add($"http://+:{_port}/"); // netsh http add urlacl url=http://+:8080/ user=user_name 
+                _HTTPListener.Prefixes.Add($"http://*:{_port}/"); 
+                _HTTPListener.Prefixes.Add($"http://+:{_port}/"); 
                 _enabled = true;
                 ListnAsync();
             }
